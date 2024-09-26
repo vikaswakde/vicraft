@@ -2,10 +2,12 @@
 
 import { useParams } from 'next/navigation'
 import FeedbackButton from '@/crafts/FeedbackButton'
+import GooeyMenu from '@/crafts/GooeyMenu'
 // Import other craft components as needed
 
 const crafts = {
   'feedback-button': FeedbackButton,
+  'gooey-menu': GooeyMenu,
   // Add other crafts here
 }
 

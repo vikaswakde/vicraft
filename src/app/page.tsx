@@ -9,6 +9,13 @@ const crafts = [
     icon: 'https://nextjs.org/icons/globe.svg',
     alt: 'Feedback icon'
   },
+  {
+    id: 'gooey-menu',
+    craft: 'GooeyMenu',
+    href: '/craft/gooey-menu',
+    icon: 'https://nextjs.org/icons/globe.svg',
+    alt: 'GooeyMenu icon'
+  },
   // Add other crafts here
 ]
 
