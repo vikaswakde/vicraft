@@ -1,87 +1,116 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Heart, Mail, Plus, Settings, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import {  Mail, Plus, Settings,  TwitterIcon, X } from 'lucide-react'
 
 const GooeyMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleMenu = () => setIsOpen(!isOpen)
 
-  const menuVariants = {
-    closed: {
-      transition: { staggerChildren: 0.05, staggerDirection: -1 }
-    },
-    open: {
-      transition: { staggerChildren: 0.07, delayChildren: 0.2 }
-    }
+  const buttonVariants = {
+    closed: { scale: 1, rotate: 0 },
+    open: { scale: 1, rotate: 135 }
   }
 
-  const itemVariants = {
-    closed: { y: 0, opacity: 0, transition: { duration: 0.2 } },
-    open: (custom: number) => ({
-      y: [0, -20, custom],
+  const menuItemVariants = {
+    closed: { 
+      y: 0, 
+      opacity: 0,
+      transition: { duration: 0.4 }
+    },
+    open: (custom: number) => ({ 
+      y: custom, 
       opacity: 1,
       transition: { 
-        y: { type: "spring", stiffness: 300, damping: 24, duration: 0.7 },
-        opacity: { duration: 0.2 }
+        type: "spring",
+        stiffness: 300,
+        damping: 24,
+        duration: 0.7, // Increased duration by 1 second
       }
     })
   }
-  
 
   return (
-    <div className="relative w-16 h-80" >
-      <motion.div
-        initial="closed"
-        animate={isOpen ? "open" : "closed"}
-        variants={menuVariants}
-        className="absolute bottom-0 flex flex-col items-center w-full"
-      >
+    <div className="relative h-[300px] w-full flex items-center justify-center">
+      <div className="gooey-menu relative">
         <motion.button
-          whileTap={{ scale: 0.95 }}
+          className="z-10 flex h-16 w-16 items-center justify-center rounded-full bg-purple-600 text-white"
           onClick={toggleMenu}
-          className="w-16 h-16 rounded-full flex items-center justify-center z-10"
-          animate={{ 
-            rotate: isOpen ? 180 : 0,
-            backgroundColor: isOpen ? "#FF4500" : "#000000",
-          }}
-          transition={{ 
-            duration: 0.4, 
-            ease: "easeInOut",
-            backgroundColor: { duration: 0.3 }
-          }}
+          variants={buttonVariants}
+          animate={isOpen ? "open" : "closed"}
+          transition={{ duration: 0.5 }}
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
         >
-          <motion.span
-            className="text-2xl"
-            animate={{ 
-              rotate: isOpen ? 180 : 0,
-              color: isOpen ? "#000000" : "#FFFFFF"
-            }}
-            transition={{ 
-              duration: 0.4, 
-              ease: "easeInOut",
-              color: { duration: 0.3 }
-            }}
-          >
-            {isOpen ? <X size={24} /> : <Plus size={24} />}
-          </motion.span>
+          {isOpen ? (
+            <motion.div
+              initial={{ rotate: 0 }}
+              animate={{ rotate: 46 }}
+              transition={{ duration: 0.3 }}
+            >
+              <X size={28} />
+            </motion.div>
+          ) : (
+            <Plus size={28} />
+          )}
         </motion.button>
-        
-        <motion.div custom={-180} variants={itemVariants} className="menu-item absolute">
-          <Heart size={24} />
-        </motion.div>
-        <motion.div custom={-120} variants={itemVariants} className="menu-item absolute">
-          <Settings size={24} />
-        </motion.div>
-        <motion.div custom={-60} variants={itemVariants} className="menu-item absolute">
-          <Mail size={24} />
-        </motion.div>
-      </motion.div>
-      
+
+        <AnimatePresence>
+          {isOpen && (
+            <>
+              <motion.button
+                className="absolute bottom-0 right-0 flex h-14 w-14 items-center justify-center rounded-full bg-gray-800 text-white"
+                variants={menuItemVariants}
+                initial="closed"
+                animate="open"
+                exit="closed"
+                custom={-80}
+              >
+                <Settings size={20} />
+              </motion.button>
+              <motion.button
+                className="absolute bottom-0 right-0 flex h-14 w-14 items-center justify-center rounded-full bg-blue-400 text-white"
+                variants={menuItemVariants}
+                initial="closed"
+                animate="open"
+                exit="closed"
+                custom={-160}
+              >
+                <TwitterIcon size={20} />
+              </motion.button>
+              <motion.button
+                className="absolute bottom-0 right-0 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white"
+                variants={menuItemVariants}
+                initial="closed"
+                animate="open"
+                exit="closed"
+                custom={-240}
+              >
+                <Mail size={20} />
+              </motion.button>
+            </>
+          )}
+        </AnimatePresence>
+      </div>
+
+      <svg className="absolute hidden" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+          <filter id="gooey">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blur" />
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10"
+              result="gooey"
+            />
+            <feComposite in="SourceGraphic" in2="gooey" operator="atop" />
+          </filter>
+        </defs>
+      </svg>
+
       <style jsx>{`
-        .menu-item {
-          @apply w-16 h-16 bg-black text-white rounded-full flex items-center justify-center;
-          bottom: 0;
+        .gooey-menu {
+          filter: url(#gooey);
         }
       `}</style>
     </div>
