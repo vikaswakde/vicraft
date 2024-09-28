@@ -1,71 +1,111 @@
-
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, Bell, Brush, Box, Image, Search, Gauge, Eraser } from 'lucide-react';
+import React, { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Menu,
+  Bell,
+  Brush,
+  Box,
+  Image,
+  Search,
+  Gauge,
+  Eraser,
+} from "lucide-react";
 
 const RadialMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [centerIcon, setCenterIcon] = useState<React.ElementType>(Menu);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const menuItems = [
-    { icon: Bell, label: 'Notifications' },
-    { icon: Brush, label: 'Draw' },
-    { icon: Box, label: 'Package' },
-    { icon: Image, label: 'Images' },
-    { icon: Search, label: 'Search' },
-    { icon: Gauge, label: 'Dashboard' },
-    { icon: Eraser, label: 'Erase' },
+    { icon: Bell, label: "Notifications" },
+    { icon: Brush, label: "Draw" },
+    { icon: Box, label: "Package" },
+    { icon: Image, label: "Images" },
+    { icon: Search, label: "Search" },
+    { icon: Gauge, label: "Dashboard" },
+    { icon: Eraser, label: "Erase" },
   ];
 
   const buttonVariants = {
     closed: { scale: 1, rotate: 0 },
-    open: { scale: 1, rotate: 135 }
+    open: { scale: 1, rotate: 360 },
   };
 
   const menuItemVariants = {
-    closed: { 
+    closed: (custom: number) => ({
       scale: 0,
       opacity: 0,
-      transition: { duration: 0.4 }
-    },
-    open: (custom: number) => ({ 
-      scale: 1,
-      opacity: 1,
-      transition: { 
+      rotate: 360,
+      transition: {
         type: "spring",
         stiffness: 300,
         damping: 14,
         delay: custom * 0.08,
-        duration: 1.7,
-      }
-    })
+        duration: 0.4,
+      },
+    }),
+    open: (custom: number) => ({
+      scale: 1,
+      opacity: 1,
+      rotate: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 14,
+        delay: custom * 0.08,
+        duration: 0.4,
+      },
+    }),
+  };
+
+  const centerIconVariants = {
+    initial: { scale: 1, rotate: 0 },
+    selected: {
+      scale: [1, 1.2, 1],
+      rotate: [0, 10, -10, 0],
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+      },
+    },
   };
 
   const radius = 120; // Adjust this value to change the size of the circle
+
+  const handleIconClick = useCallback((icon: React.ElementType) => {
+    setCenterIcon(icon);
+    setIsOpen(false);
+  }, []);
 
   return (
     <div className="relative w-64 h-64">
       <motion.button
         onClick={toggleMenu}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-purple-600 text-white rounded-full p-4 shadow-lg"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-white rounded-full p-4 shadow-lg cursor-pointer bg-black"
         variants={buttonVariants}
-        // animate={isOpen ? "open" : "closed"}
+        animate={isOpen ? "open" : "closed"}
         transition={{ duration: 0.5 }}
-        // whileTap={{ scale: 0.9 }}
-        // whileHover={{ scale: 1.05 }}
       >
-        <Menu size={24} />
+        <motion.div
+          variants={centerIconVariants}
+          initial="initial"
+          animate="selected"
+          key={centerIcon.toString()} // Use toString() instead of name
+        >
+          {React.createElement(centerIcon, { size: 24 })}
+        </motion.div>
       </motion.button>
       <AnimatePresence>
         {isOpen && (
           <>
             {menuItems.map((item, index) => {
-              const angle = (index / menuItems.length) * Math.PI * 2 - Math.PI / 2;
+              const angle =
+                (index / menuItems.length) * Math.PI * 2 - Math.PI / 2;
               return (
                 <motion.button
                   key={index}
-                  className="absolute top-1/2 left-1/2 bg-white text-gray-800 rounded-full p-3 shadow-md"
+                  className="absolute top-1/2 left-1/2 bg-white text-gray-800 rounded-full p-3 shadow-md cursor-pointer"
                   variants={menuItemVariants}
                   custom={index}
                   initial="closed"
@@ -77,6 +117,7 @@ const RadialMenu = () => {
                   }}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => handleIconClick(item.icon)}
                 >
                   <item.icon size={24} />
                 </motion.button>
@@ -97,7 +138,13 @@ const RadialMenu = () => {
           pointer-events: none;
         }
       `}</style>
-      <svg className="absolute hidden" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <svg
+        className="absolute hidden"
+        width="0"
+        height="0"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+      >
         <defs>
           <filter id="gooey">
             <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />

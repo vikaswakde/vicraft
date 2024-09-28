@@ -16,6 +16,13 @@ const crafts = [
     icon: 'https://nextjs.org/icons/globe.svg',
     alt: 'GooeyMenu icon'
   },
+  {
+    id: 'radial-menu',
+    craft: 'RadialMenu',
+    href: '/craft/radial-menu',
+    icon: 'https://nextjs.org/icons/globe.svg',
+    alt: 'RadialMenu icon'
+  },
   // Add other crafts here
 ]
 
