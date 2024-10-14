@@ -4,12 +4,14 @@ import { useParams } from 'next/navigation'
 import FeedbackButton from '@/crafts/FeedbackButton'
 import GooeyMenu from '@/crafts/GooeyMenu'
 import RadialMenu from '@/crafts/RadialMenu'
+import AirportAirPlaneTakeOff from '@/crafts/AirportAirPlaneTakeOff'
 // Import other craft components as needed
 
 const crafts = {
   'feedback-button': FeedbackButton,
   'gooey-menu': GooeyMenu,
   'radial-menu': RadialMenu,
+  'airport-airplane-take-off': AirportAirPlaneTakeOff,
   // Add other crafts here
 }
 

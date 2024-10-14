@@ -23,6 +23,20 @@ const crafts = [
     icon: 'https://nextjs.org/icons/globe.svg',
     alt: 'RadialMenu icon'
   },
+  {
+    id: 'airport-airplane-take-off',
+    craft: 'AirportAirPlaneTakeOff',
+    href: '/craft/airport-airplane-take-off',
+    icon: 'https://nextjs.org/icons/globe.svg',
+    alt: 'AirportAirPlaneTakeOff icon'
+  },
+  {
+    id: 'apple-music-lyrics-animation',
+    craft: 'AppleMusicLyricsAnimation',
+    href: 'https://apple-music-lyrics-animation-devnagri.vercel.app/',
+    icon: 'https://nextjs.org/icons/globe.svg',
+    alt: 'Apple Music Lyrics Animation icon'
+  },
   // Add other crafts here
 ]
 
