@@ -36,7 +36,7 @@ const StarRating: React.FC<{
           data-star={star}
           className={`text-3xl focus:outline-none`}
           whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.9, transition: { duration: 0.4 } }}
           onClick={() => setRating(star)}
           onHoverStart={() => setHoveredRating(star)}
           onHoverEnd={() => setHoveredRating(0)}
@@ -160,7 +160,7 @@ const FeedbackButton: React.FC = () => {
                       opacity: 0.9,
                       transition: {
                         duration: 0.5,
-                        ease: [0.34, 1.56, 0.64, 1],
+                        ease: [0.25, 0.1, 0.25, 1],
                       },
                     }
                   : { width: 384, height: 256, y: -128, scale: 1, opacity: 1 }
@@ -183,7 +183,7 @@ const FeedbackButton: React.FC = () => {
                 initial={{ scale: 0.5 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.5 }}
-                transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 <textarea
                   className="w-full h-[calc(100%)] px-4 pt-3 pb-10 text-lg font-semibold rounded-xl text-purple-700 focus:outline-none resize-none"
@@ -235,7 +235,7 @@ const FeedbackButton: React.FC = () => {
                       exit={{ opacity: 0 }}
                       transition={{
                         duration: 0.4,
-                        ease: [0.34, 1.56, 0.64, 1],
+                        ease: [0.25, 0.1, 0.25, 1],
                       }}
                     >
                       Feedback
