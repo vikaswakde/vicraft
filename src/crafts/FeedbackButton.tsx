@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, KeyboardEvent, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Confetti from "react-confetti"; // Importing the confetti package
 
 const StarRating: React.FC<{
   rating: number;
@@ -12,9 +13,12 @@ const StarRating: React.FC<{
   const handleTouchMove = (e: React.TouchEvent, star: number) => {
     const touch = e.touches[0];
     const elements = document.elementsFromPoint(touch.clientX, touch.clientY);
-    const starElement = elements.find(el => el.tagName === 'BUTTON');
+    const starElement = elements.find((el) => el.tagName === "BUTTON");
     if (starElement) {
-      const starIndex = parseInt(starElement.getAttribute('data-star') || '0', 10);
+      const starIndex = parseInt(
+        starElement.getAttribute("data-star") || "0",
+        10
+      );
       setHoveredRating(starIndex);
     }
   };
@@ -62,6 +66,7 @@ const FeedbackButton: React.FC = () => {
   const [isThankYouVisible, setIsThankYouVisible] = useState(false);
   const [rating, setRating] = useState(0);
   const [isClosing, setIsClosing] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false); // State for confetti
   const feedbackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -94,6 +99,7 @@ const FeedbackButton: React.FC = () => {
     setIsSending(false);
     setIsThankYouVisible(false);
     setRating(0);
+    setShowConfetti(false); // Reset confetti state
   };
 
   const handleClick = () => {
@@ -111,6 +117,7 @@ const FeedbackButton: React.FC = () => {
     setTimeout(() => {
       setIsSending(false);
       setIsThankYouVisible(true);
+      setShowConfetti(true); // Show confetti on successful submission
     }, 2000);
   };
 
@@ -427,6 +434,10 @@ const FeedbackButton: React.FC = () => {
             </motion.div>
           )}
         </AnimatePresence>
+        {/* {showConfetti && <Confetti />} Render confetti when feedback is submitted successfully */}
+        {showConfetti && (
+          <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={400} recycle={false} style={{ position: 'absolute', top: -250, left: '50%', transform: 'translateX(-50%)' }} />
+        )}
       </div>
     </div>
   );
