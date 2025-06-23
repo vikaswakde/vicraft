@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import React from 'react'
-import { MessageSquare, Menu, CircleUser, Plane, Music, Github } from 'lucide-react'
+import { MessageSquare, Menu, CircleUser, Plane, Music, Github, CreditCard } from 'lucide-react'
 
 const crafts = [
   {
@@ -38,6 +38,13 @@ const crafts = [
     href: 'https://apple-music-lyrics-animation-devnagri.vercel.app/',
     icon: Music,
     alt: 'Apple Music Lyrics Animation icon'
+  },
+  {
+    id: 'pocket-card',
+    craft: 'PocketCard',
+    href: '/craft/pocket-card',
+    icon: CreditCard,
+    alt: 'PocketCard icon'
   },
   // Add other crafts here
 ]

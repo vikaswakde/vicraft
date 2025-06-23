@@ -5,6 +5,7 @@ import FeedbackButton from "@/crafts/FeedbackButton";
 import GooeyMenu from "@/crafts/GooeyMenu";
 import RadialMenu from "@/crafts/RadialMenu";
 import AirportAirPlaneTakeOff from "@/crafts/AirportAirPlaneTakeOff";
+import PocketCard from "@/crafts/PocketCard";
 // Import other craft components as needed
 
 const crafts = {
@@ -12,6 +13,7 @@ const crafts = {
   "gooey-menu": GooeyMenu,
   "radial-menu": RadialMenu,
   "airport-airplane-take-off": AirportAirPlaneTakeOff,
+  "pocket-card": PocketCard,
   // Add other crafts here
 };
 
@@ -26,7 +28,7 @@ export default function CraftPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-teal-200">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <CraftComponent />
     </div>
   );
