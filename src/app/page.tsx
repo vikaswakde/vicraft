@@ -1,40 +1,42 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import React from 'react'
+import { MessageSquare, Menu, CircleUser, Plane, Music, Github } from 'lucide-react'
 
 const crafts = [
   {
     id: 'feedback-button',
     craft: 'FeedbackButton',
     href: '/craft/feedback-button',
-    icon: 'https://nextjs.org/icons/globe.svg',
+    icon: MessageSquare,
     alt: 'Feedback icon'
   },
   {
     id: 'gooey-menu',
     craft: 'GooeyMenu',
     href: '/craft/gooey-menu',
-    icon: 'https://nextjs.org/icons/globe.svg',
+    icon: Menu,
     alt: 'GooeyMenu icon'
   },
   {
     id: 'radial-menu',
     craft: 'RadialMenu',
     href: '/craft/radial-menu',
-    icon: 'https://nextjs.org/icons/globe.svg',
+    icon: CircleUser,
     alt: 'RadialMenu icon'
   },
   // {
   //   id: 'airport-airplane-take-off',
   //   craft: 'AirportAirPlaneTakeOff',
   //   href: '/craft/airport-airplane-take-off',
-  //   icon: 'https://nextjs.org/icons/globe.svg',
+  //   icon: Plane,
   //   alt: 'AirportAirPlaneTakeOff icon'
   // },
   {
     id: 'apple-music-lyrics-animation',
     craft: 'AppleMusicLyricsAnimation',
     href: 'https://apple-music-lyrics-animation-devnagri.vercel.app/',
-    icon: 'https://nextjs.org/icons/globe.svg',
+    icon: Music,
     alt: 'Apple Music Lyrics Animation icon'
   },
   // Add other crafts here
@@ -53,13 +55,11 @@ export default function Home() {
                 className="flex items-center gap-2 hover:underline hover:underline-offset-4"
                 href={craft.href}
               >
-                <Image
-                  aria-hidden
-                  src={craft.icon}
-                  alt={craft.alt}
-                  width={16}
-                  height={16}
-                />
+                {React.createElement(craft.icon, {
+                  'aria-hidden': true,
+                  size: 16,
+                  className: "shrink-0"
+                })}
                 {craft.craft}
               </Link>
             </li>
