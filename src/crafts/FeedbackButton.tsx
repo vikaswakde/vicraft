@@ -34,7 +34,7 @@ const StarRating: React.FC<{
         <motion.button
           key={star}
           data-star={star}
-          className={`text-3xl focus:outline-none`}
+          className={`text-3xl focus:outline-hidden`}
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9, transition: { duration: 0.4 } }}
           onClick={() => setRating(star)}
@@ -186,7 +186,7 @@ const FeedbackButton: React.FC = () => {
                 transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 <textarea
-                  className="w-full h-[calc(100%)] px-4 pt-3 pb-10 text-lg font-semibold rounded-xl text-purple-700 focus:outline-none resize-none"
+                  className="w-full h-[calc(100%)] px-4 pt-3 pb-10 text-lg font-semibold rounded-xl text-purple-700 focus:outline-hidden resize-none"
                   value={inputValue}
                   onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
