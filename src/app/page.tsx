@@ -1,29 +1,35 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import React from 'react'
-import { MessageSquare, Menu, CircleUser, Plane, Music, Github, CreditCard } from 'lucide-react'
+import {
+  CircleUser,
+  CreditCard,
+  Menu,
+  MessageSquare,
+  Music,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 const crafts = [
   {
-    id: 'feedback-button',
-    craft: 'FeedbackButton',
-    href: '/craft/feedback-button',
+    id: "feedback-button",
+    craft: "FeedbackButton",
+    href: "/craft/feedback-button",
     icon: MessageSquare,
-    alt: 'Feedback icon'
+    alt: "Feedback icon",
   },
   {
-    id: 'gooey-menu',
-    craft: 'GooeyMenu',
-    href: '/craft/gooey-menu',
+    id: "gooey-menu",
+    craft: "GooeyMenu",
+    href: "/craft/gooey-menu",
     icon: Menu,
-    alt: 'GooeyMenu icon'
+    alt: "GooeyMenu icon",
   },
   {
-    id: 'radial-menu',
-    craft: 'RadialMenu',
-    href: '/craft/radial-menu',
+    id: "radial-menu",
+    craft: "RadialMenu",
+    href: "/craft/radial-menu",
     icon: CircleUser,
-    alt: 'RadialMenu icon'
+    alt: "RadialMenu icon",
   },
   // {
   //   id: 'airport-airplane-take-off',
@@ -33,21 +39,21 @@ const crafts = [
   //   alt: 'AirportAirPlaneTakeOff icon'
   // },
   {
-    id: 'apple-music-lyrics-animation',
-    craft: 'AppleMusicLyricsAnimation',
-    href: 'https://apple-music-lyrics-animation-devnagri.vercel.app/',
+    id: "apple-music-lyrics-animation",
+    craft: "AppleMusicLyricsAnimation",
+    href: "https://apple-music-lyrics-animation-devnagri.vercel.app/",
     icon: Music,
-    alt: 'Apple Music Lyrics Animation icon'
+    alt: "Apple Music Lyrics Animation icon",
   },
   {
-    id: 'pocket-card',
-    craft: 'PocketCard',
-    href: '/craft/pocket-card',
+    id: "pocket-card",
+    craft: "PocketCard",
+    href: "/craft/pocket-card",
     icon: CreditCard,
-    alt: 'PocketCard icon'
+    alt: "PocketCard icon",
   },
   // Add other crafts here
-]
+];
 
 export default function Home() {
   return (
@@ -63,9 +69,9 @@ export default function Home() {
                 href={craft.href}
               >
                 {React.createElement(craft.icon, {
-                  'aria-hidden': true,
+                  "aria-hidden": true,
                   size: 16,
-                  className: "shrink-0"
+                  className: "shrink-0",
                 })}
                 {craft.craft}
               </Link>
@@ -92,5 +98,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
 }
