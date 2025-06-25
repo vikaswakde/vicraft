@@ -18,7 +18,7 @@ import React, { useEffect, useRef, useState } from "react";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ModelIcon = React.NamedExoticComponent<any> | any;
 
-type Model = {
+export type Model = {
   id: string;
   name: string;
   description: string;
