@@ -1,9 +1,8 @@
 "use client";
 import pocketlogo from "@/app/images/pocket-logo.png";
-import Sarvam from "@/app/images/sarvam-ai-logo.png";
 import { cn } from "@/app/lib/utils";
+import { aiModels } from "@/data/aiModels";
 import { Message, useChat } from "@ai-sdk/react";
-import { DeepSeek, Gemini, Meta, Mistral, Qwen } from "@lobehub/icons";
 import { GeistSans } from "geist/font/sans";
 import {
   AlertCircleIcon,
@@ -11,10 +10,10 @@ import {
   SendIcon,
   XIcon,
 } from "lucide-react";
+
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-
 // Add a type for models to handle both component icons and image icons
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ModelIcon = React.NamedExoticComponent<any> | any;
@@ -27,118 +26,6 @@ type Model = {
   apiId: string;
   children?: Model[];
 };
-
-// Updated model structure with nested children
-const aiModels: Model[] = [
-  {
-    id: "gemini",
-    name: "Google Gemini",
-    description: "A collection of top gemini models",
-    Icon: Gemini.Avatar,
-    apiId: "google/gemini-2.0-flash-exp:free",
-    children: [
-      {
-        id: "gemini-2.0-flash-exp",
-        name: "Gemini 2.0 Flash Exp",
-        description: "Fast, efficient text generation",
-        Icon: Gemini.Avatar,
-        apiId: "google/gemini-2.0-flash-exp:free",
-      },
-      {
-        id: "gemma-3-12b-it",
-        name: "Gemma 3.12b IT",
-        description: "Fast, efficient text generation",
-        Icon: Gemini.Avatar,
-        apiId: "google/gemma-3-12b-it:free",
-      },
-    ],
-  },
-  {
-    id: "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    name: "DeepSeek",
-    description: "A collection of top DeepSeek models",
-    Icon: DeepSeek.Avatar,
-    apiId: "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    children: [
-      {
-        id: "deepseek-r1-0528-qwen3-8b",
-        name: "DeepSeek R1",
-        description: "Advanced reasoning capabilities",
-        Icon: DeepSeek.Avatar,
-        apiId: "deepseek/deepseek-r1-0528-qwen3-8b:free",
-      },
-      {
-        id: "qwen-32b",
-        name: "Qwen 32b",
-        description: "Fast and efficient text generation",
-        Icon: Qwen.Avatar,
-        apiId: "qwen/qwq-32b:free",
-      },
-    ],
-  },
-  {
-    id: "mistralai/mistral-small-3.2-24b-instruct-2506:free",
-    name: "Mistral",
-    description: "A collection of top Mistral models",
-    Icon: Mistral.Avatar,
-    apiId: "mistralai/mistral-small-3.2-24b-instruct-2506:free",
-    children: [
-      {
-        id: "mistral-small-3.2-24b-instruct-2506",
-        name: "Mistral Small 3.2",
-        description: "Advanced reasoning capabilities",
-        Icon: Mistral.Avatar,
-        apiId: "mistralai/mistral-small-3.2-24b-instruct-2506:free",
-      },
-      {
-        id: "mistral-nemo",
-        name: "Mistral Nemo",
-        description: "Fast and efficient text generation",
-        Icon: Mistral.Avatar,
-        apiId: "mistralai/mistral-nemo:free",
-      },
-    ],
-  },
-  {
-    id: "meta-llama/llama-4-maverick-17b-128e-instruct:free",
-    name: "Meta",
-    description: "A collection of top Meta models",
-    Icon: Meta.Avatar,
-    apiId: "meta-llama/llama-4-maverick-17b-128e-instruct:free",
-    children: [
-      {
-        id: "llama-4-maverick-17b-128e-instruct",
-        name: "Llama 4 Maverick",
-        description: "Advanced reasoning capabilities",
-        Icon: Meta.Avatar,
-        apiId: "meta-llama/llama-4-maverick-17b-128e-instruct:free",
-      },
-      {
-        id: "llama-4-scout-17b-16e-instruct",
-        name: "Llama 4 Scout",
-        description: "Fast and efficient text generation",
-        Icon: Meta.Avatar,
-        apiId: "meta-llama/llama-4-scout-17b-16e-instruct:free",
-      },
-    ],
-  },
-  {
-    id: "sarvamai/sarvam-m:free",
-    name: "Sarvam",
-    description: "A collection of top Sarvam models",
-    Icon: Sarvam,
-    apiId: "sarvamai/sarvam-m:free",
-    children: [
-      {
-        id: "sarvam-m",
-        name: "Sarvam M",
-        description: "Advanced reasoning capabilities",
-        Icon: Sarvam,
-        apiId: "sarvamai/sarvam-m:free",
-      },
-    ],
-  },
-];
 
 const listVariants = {
   hidden: {
@@ -174,7 +61,7 @@ const modelParentVariants = {
     transition: { staggerChildren: 0.07, delayChildren: 0.2 },
   },
   closed: {
-    transition: { staggerChildren: 0.05, staggerDirection: -1 },
+    transition: { staggerChildren: 0.2, staggerDirection: -1 },
   },
 };
 
@@ -300,9 +187,7 @@ const PocketCard = () => {
     const model = aiModels.find((m) => m.id === modelId);
     if (model?.children?.length) {
       setExpandedModels((prev) =>
-        prev.includes(modelId)
-          ? prev.filter((id) => id !== modelId)
-          : [...prev, modelId]
+        prev.includes(modelId) ? prev.filter((id) => id !== modelId) : [modelId]
       );
     }
 
@@ -780,7 +665,7 @@ const PocketCard = () => {
                           animate="open"
                           exit="closed"
                         >
-                          {model.children.map((child) => (
+                          {model.children.map((child: Model) => (
                             <motion.div
                               variants={modelChildrenVariants}
                               key={child.id}
