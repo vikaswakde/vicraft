@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
   // Rate limiting logic
   const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
   console.log(ip);
+  console.log('this is ip bro', ip);
 
   // Check if the user's IP is in the allowlist
   const allowlist = (process.env.IP_ALLOWLIST || "").split(",").map(item => item.trim());
