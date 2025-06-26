@@ -10,13 +10,14 @@ export const aiModels: Model[] = [
       Icon: Gemini.Avatar,
       apiId: "google/gemini-2.0-flash-exp:free",
       children: [
-        {
-          id: "gemini-2.0-flash-exp",
-          name: "Gemini 2.0 Flash Exp",
-          description: "Fast, efficient text generation",
-          Icon: Gemini.Avatar,
-          apiId: "google/gemini-2.0-flash-exp:free",
-        },
+        //  some times work sometimes doesn't work
+        // {
+        //   id: "gemini-2.0-flash-exp",
+        //   name: "Gemini 2.0 Flash Exp",
+        //   description: "Fast, efficient text generation",
+        //   Icon: Gemini.Avatar,
+        //   apiId: "google/gemini-2.0-flash-exp:free",
+        // },
         {
           id: "gemma-3-12b-it",
           name: "Gemma 3.12b IT",
